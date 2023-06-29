@@ -106,7 +106,7 @@ class HomeController extends Controller
 
   
     public function Images_functionPOST(Request $request){
-        try{
+        try{ 
             $file_Newname = "";
           
             $route = route('images_');
