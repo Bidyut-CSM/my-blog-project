@@ -14,6 +14,9 @@ use App\Http\Controllers\BlogController;
 | contains the "web" middleware group. Now create something great!
 |
 */ 
+//git status
+//git add .
+//git commit -m "second commit"
  //>composer create-project laravel/laravel="^8" myProject
 Route::fallback(function(){ 
     try { 

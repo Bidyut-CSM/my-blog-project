@@ -131,7 +131,7 @@ class HomeController extends Controller
                     //https://stackoverflow.com/questions/718491/resize-animated-gif-file-without-destroying-animation
                     //https://stackoverflow.com/questions/5064839/resize-png-image-in-php
                     //https://github.com/bachors/PHP-Image-Compressor-Class
-                    $source = public_path("myfile/$file_Newname",);
+                    $source = public_path("myfile/$file_Newname");
                     $destination = public_path('myfile/'.'reset-'.$file_Newname);
                     $png_destination = public_path('myfile/'.'png-reset-'.$file_Newname);
                    
