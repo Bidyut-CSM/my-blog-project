@@ -14,7 +14,7 @@ class BlogModel extends Model
         'title',
         'description',
         'photo',
-    ];
+    ]; 
 
  
     public function SaveNewBlog($request,$data) {
@@ -31,7 +31,7 @@ class BlogModel extends Model
             return array('resulte'=>true,'data'=>$insert_data);
         } catch (\Throwable $error) {
             DB::rollback();
-            throw new \Exception($error);
+            throw $error;
         }
     }
 
@@ -51,7 +51,7 @@ class BlogModel extends Model
             return array('resulte'=>true,'data'=>$update_data);
         } catch (\Throwable $error) {
             DB::rollback();
-            throw new \Exception($error);
+            throw $error;
         }
     }
 
@@ -69,7 +69,7 @@ class BlogModel extends Model
             return array('resulte'=>true,'data'=>'');
         } catch (\Throwable $error) {
             DB::rollback();
-            throw new \Exception($error);
+            throw $error;
         }
     }
 
@@ -84,18 +84,18 @@ class BlogModel extends Model
             return array('resulte'=>true,'data'=>'');
         } catch (\Throwable $error) {
             DB::rollback();
-            throw new \Exception($error);
+            throw $error;
         }
     }    
     
-
+ 
     public function GetBlogByTitle($request,$url_title) {
         try {
             $blog_data = DB::select("CALL GetBlogByTitle(?)",array($url_title));
             $blog_data = $blog_data[0];
             return array('resulte'=>true,'data'=>$blog_data);
         } catch (\Throwable $error) {
-            throw new \Exception($error);
+            throw $error;
         }
     } 
     
@@ -105,7 +105,7 @@ class BlogModel extends Model
             $blog_data = $blog_data[0];
             return array('resulte'=>true,'data'=>$blog_data);
         } catch (\Throwable $error) {
-            throw new \Exception($error);
+            throw $error;
         }
     } 
 

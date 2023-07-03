@@ -30,7 +30,7 @@ Route::fallback(function(){
         return view('error_handler.ERROR_PAGE',$data);
     }
 });
- 
+  
 Route::get("/",[HomeController::class, 'index'])->name('indexpage');
 Route::get('/images_', [HomeController::class, 'Images_function'])->name('images_');
 Route::post('/images-check', [HomeController::class, 'Images_functionPOST'])->name('images-check');
@@ -41,7 +41,7 @@ Route::get("/login",[UsersController::class, 'login'])->name('login')->middlewar
 Route::post("/user-login",[UsersController::class, 'UserLogin'])->name('user-login')->middleware('UserIsNotloggedin');
 Route::get("/register",[UsersController::class, 'Register'])->name('register')->middleware('UserIsNotloggedin');
 Route::post("/user-register",[UsersController::class, 'UserRegister'])->name('user-register')->middleware('UserIsNotloggedin'); 
-     
+      
 Route::group(['prefix'=>'user','middleware'=>'UserIsloggedin'],function() {
     Route::get('/', [UsersController::class, 'UserHome'])->name('user-home');
 

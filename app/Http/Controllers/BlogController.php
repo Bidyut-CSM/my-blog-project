@@ -39,7 +39,7 @@ class BlogController extends Controller
  
     public function AddNewBlog(Request $request) {
         try {
-            
+             
             return view('user.add-blog');
         } catch (\Throwable $error) {
             $data = array(
@@ -72,12 +72,15 @@ class BlogController extends Controller
       
         if($validate->fails()){ 
             return redirect($addnewblog_route)->withErrors($validate->errors())->withInput();
-        } 
+        }  
         $loggedin_user = session()->get('user_data');
         $title =  trim(str_replace("/"," ",$request->post('title')));
         $description = $request->post('description');//mysql_escape($request->post('description'));
         $file_Newname= "";
         if($request->hasFile('photo')) {
+            if(!getimagesize($_FILES['photo']['tmp_name'])){
+                return redirect($addnewblog_route)->with('failed_','Invalid file selected. Try again.');
+            } 
             $file = $request->file('photo');
             $fileName = $file->getClientOriginalName();
             $file_extension = $file->extension();
@@ -85,9 +88,9 @@ class BlogController extends Controller
             $file_Newname = "blog-".rand(11111, 99999).".".$file_extension;
             if($file->move('public/blog/',$file_Newname)){
                 $data_collection = array(
-                    'title'=>$title,
+                    'title'=>$title,  
                     'description'=>$description,
-                    'photo'=>$file_Newname,
+                    'photo'=>$file_Newname, 
                     'user_id'=>$loggedin_user->id,
                 );
                 $data = $this->BlogModel->SaveNewBlog($request,$data_collection);
@@ -173,7 +176,7 @@ class BlogController extends Controller
                     "title.max" => "Blog title should 250 characters.",
                     "description.required" => "Description required.",
                 ]);
-            }
+            } 
             if($validate->fails()){ 
                 return redirect($editblog_route)->withErrors($validate->errors())->withInput();
             } 
@@ -183,6 +186,9 @@ class BlogController extends Controller
             $loggedin_user = session()->get('user_data');
             $file_Newname = "";
             if($request->hasFile('photo')) {
+                if(!getimagesize($_FILES['photo']['tmp_name'])){
+                    return redirect($editblog_route)->with('failed_','Invalid file selected. Try again.');
+                }
                 $file = $request->file('photo');
                 $fileName = $file->getClientOriginalName();
                 $file_extension = $file->extension();

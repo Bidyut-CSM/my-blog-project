@@ -204,6 +204,9 @@ class UsersController extends Controller
             $user = $user_details['data'];
             $file_Newname ="";
             if($request->hasFile('photo')) {
+                if(!getimagesize($_FILES['photo']['tmp_name'])){
+                    return redirect($user_profile_route)->with('ad_danger1','Invalid file selected. Try again.');
+                }
                 $file = $request->file('photo');
                 $fileName = $file->getClientOriginalName();
                 $file_extension = $file->extension();
