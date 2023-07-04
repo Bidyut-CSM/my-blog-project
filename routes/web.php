@@ -58,6 +58,6 @@ Route::group(['prefix'=>'user','middleware'=>'UserIsloggedin'],function() {
     Route::post('/update-blog/{id}', [BlogController::class, 'UpdateBlog'])->name('update-blog');
     Route::get('/blog-status/{id}/{status}', [BlogController::class, 'UpdateBlogStatus'])->name('blog-status');
     Route::get('/delete-blog/{id}', [BlogController::class, 'DeleteBlog'])->name('delete-blog');
-
+ 
     Route::get('/user-logout', [UsersController::class, 'UserLogout'])->name('user-logout');
 });

@@ -36,7 +36,7 @@ class BlogController extends Controller
             return view('error_handler.ERROR_PAGE',$data);
         }
     }
- 
+  
     public function AddNewBlog(Request $request) {
         try {
              
