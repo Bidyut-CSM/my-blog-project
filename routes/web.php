@@ -13,7 +13,7 @@ use App\Http\Controllers\BlogController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/  
+*/   
 //git status
 //git add .
 //git commit -m "second commit"
@@ -29,13 +29,14 @@ Route::fallback(function(){
          );
         return view('error_handler.ERROR_PAGE',$data);
     }
-});
-  
+});  
+     
 Route::get("/",[HomeController::class, 'index'])->name('indexpage');
 Route::get('/images_', [HomeController::class, 'Images_function'])->name('images_');
 Route::post('/images-check', [HomeController::class, 'Images_functionPOST'])->name('images-check');
 Route::get('/blog/{title}', [HomeController::class, 'GetBlogByTitle'])->name('show-blog');
 Route::get('/all-blog', [HomeController::class, 'ShowAllBlog'])->name('all-blog');
+Route::get('/map', [HomeController::class, 'ShowMap'])->name('map');
 
 Route::get("/login",[UsersController::class, 'login'])->name('login')->middleware('UserIsNotloggedin');
 Route::post("/user-login",[UsersController::class, 'UserLogin'])->name('user-login')->middleware('UserIsNotloggedin');

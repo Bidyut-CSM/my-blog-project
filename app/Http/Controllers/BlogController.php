@@ -18,7 +18,7 @@ class BlogController extends Controller
     public function __construct(){
         $this->UserModel = new User;
         $this->BlogModel = new BlogModel;
-    }
+    } 
 
     public function ViewBlog(Request $request) {
         try {
@@ -80,7 +80,7 @@ class BlogController extends Controller
         if($request->hasFile('photo')) {
             if(!getimagesize($_FILES['photo']['tmp_name'])){
                 return redirect($addnewblog_route)->with('failed_','Invalid file selected. Try again.');
-            } 
+            }  
             $file = $request->file('photo');
             $fileName = $file->getClientOriginalName();
             $file_extension = $file->extension();

@@ -16,11 +16,14 @@ class HomeController extends Controller
     public $BlogModel;
     
     public function __construct(){
-        $this->UserModel = new User;
+        $this->UserModel = new User; 
         $this->BlogModel = new BlogModel;
     }
     public function index(Request $request) {
         try {
+            // $blog_data = DB::select("CALL QuarterStartAndEnd(?)",array(date('Y-m-d')));
+            // $blog_data = $blog_data[0];
+            // return gettype(date('Y-m-d',strtotime($blog_data->StartDate)));
             $home_data = $this->BlogModel->HomeData($request); 
             $data = array(
                 'banner_list'=>$home_data['banner_list'],
@@ -28,7 +31,7 @@ class HomeController extends Controller
                 'left_blog_list'=>$home_data['left_blog_list'],
                 'total_single_blog'=>$home_data['total_single_blog'],
                 'single_blog'=>$home_data['single_blog'],
-            );
+            ); 
             return view('index',$data);
         } catch (\Throwable $error) {
             $data = array(
@@ -104,7 +107,7 @@ class HomeController extends Controller
     }
 
 
-  
+   
     public function Images_functionPOST(Request $request){
         try{ 
             $file_Newname = "";
@@ -140,7 +143,7 @@ class HomeController extends Controller
                     $info = getimagesize($source);  
                     if ($info['mime'] == 'image/jpeg') {
                         $quality =20;
-                    
+                     
                         $img = file_get_contents($source);
                         $originalImage = imagecreatefromstring($img);
                         $width = imagesx($originalImage); 
@@ -152,7 +155,7 @@ class HomeController extends Controller
                         imagejpeg($thumb,$destination, $quality);
                         imagedestroy($thumb);
                        
-
+ 
                         //--------for image resolution compressor start-------//
                         // $image = imagecreatefromjpeg($destination);
                         // if (file_exists($destination)) {
@@ -214,7 +217,22 @@ class HomeController extends Controller
     }
 
 
-
+    public function ShowMap(Request $request) { 
+        try {
+            $blog_data = $this->BlogModel->ShowAllBlog($request); 
+            $data = array(
+                'banner_list'=>$blog_data['banner_list'],
+                // 'all_blog_list'=>$blog_data['all_blog_list'],
+            ); 
+            return view('map',$data); 
+        } catch (\Throwable $error) {
+            $data = array(
+                'message'=>$error->getMessage(),
+                'errors'=>$error
+             );
+            return view('error_handler.ERROR_PAGE',$data);
+        }
+    }
 
 
 
