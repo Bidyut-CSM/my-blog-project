@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>404 Error !</title>
+    <title>500 Error !</title>
     {{-- <link rel="stylesheet" href="https://fontawesome.com/v4/assets/font-awesome/css/font-awesome.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url('/') }}/css/error-page-style.scss">
@@ -281,7 +281,7 @@
           </svg>
         </div>
         <div class="col-md-6 align-self-center">
-          <h1 style="font-size: 7.5em;">404</h1>
+          <h1 style="font-size: 7.5em;">500</h1>
           <h2 style="font-size: 2rem; font-weight: bold;">UH OH! You're lost.</h2>
           <p class="text-danger">
             {{ $message }}

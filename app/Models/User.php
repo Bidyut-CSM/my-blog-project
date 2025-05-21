@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
 use \Hash;
+use App\Models\BlogModel;
+use App\Models\Profile;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -42,7 +44,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public function Profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+    public function Userblog()
+    {
+        return $this->hasMany(BlogModel::class);
+    }
+    public function Usersblog()
+    {
+        return $this->belongsToMany(BlogModel::class, 'blog_list_tbl', 'user_id', 'id');
+    }
     public function GetRowByEmail(string $emailid){
         try {
             DB::select("SET @p0='$emailid'");

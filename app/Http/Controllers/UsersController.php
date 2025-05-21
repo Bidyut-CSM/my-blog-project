@@ -8,15 +8,18 @@ use Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\BlogModel;
+use App\Models\Profile;
 use Auth;
 class UsersController extends Controller
 { 
     public $UserModel;
     public $BlogModel;
+    public $Profile;
     
     public function __construct(){
         $this->UserModel = new User;
         $this->BlogModel = new BlogModel;
+        $this->Profile = new Profile;
     }
  
     public function login(Request $request) {
@@ -392,6 +395,60 @@ class UsersController extends Controller
             Auth::logout();
             return redirect($login_route)->with('success_','Successfully logged out');
             
+        } catch (\Throwable $error) {
+            $data = array(
+                'message'=>$error->getMessage(),
+                'errors'=>$error
+             );
+            return view('error_handler.ERROR_PAGE',$data);
+        }
+    }
+
+    public function OneToOne(Request $request) {
+        try {
+            $user_data = $request->session()->get('user_data');
+            $id = isset($user_data->id) ? $user_data->id : 1;
+            $user = $this->UserModel::find($id);
+            $profile_ = isset($user->Profile)?$user->Profile:[];
+            
+
+            $profile = $this->Profile::find($id);
+            $user_ = isset($profile->User)?$profile->User:[];
+            return $user_;
+            return $profile_;
+        } catch (\Throwable $error) {
+            $data = array(
+                'message'=>$error->getMessage(),
+                'errors'=>$error
+             );
+            return view('error_handler.ERROR_PAGE',$data);
+        }
+    }
+
+    public function OneToMany(Request $request) {
+        try {
+            $user_data = $request->session()->get('user_data');
+            $id = isset($user_data->id) ? $user_data->id : 1;
+            $user = $this->UserModel::find($id);
+            $blogs = isset($user->Userblog)?$user->Userblog:[];
+            return $blogs;
+        } catch (\Throwable $error) {
+            $data = array(
+                'message'=>$error->getMessage(),
+                'errors'=>$error
+             );
+            return view('error_handler.ERROR_PAGE',$data);
+        }
+    }
+
+        public function ManyToMany(Request $request) {
+        try {
+            $user_data = $request->session()->get('user_data');
+            $id = isset($user_data->id) ? $user_data->id : 1;
+            $user = $this->UserModel::find($id);
+            dd($user->Usersblog());
+            $blogs = isset($user->Usersblog)?$user->Usersblog:[];
+            return $blogs;
         } catch (\Throwable $error) {
             $data = array(
                 'message'=>$error->getMessage(),

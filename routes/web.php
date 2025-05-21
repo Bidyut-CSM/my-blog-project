@@ -61,4 +61,8 @@ Route::group(['prefix'=>'user','middleware'=>'UserIsloggedin'],function() {
     Route::get('/delete-blog/{id}', [BlogController::class, 'DeleteBlog'])->name('delete-blog');
 
     Route::get('/user-logout', [UsersController::class, 'UserLogout'])->name('user-logout');
+
+    Route::get('/user-one-to-one', [UsersController::class, 'OneToOne'])->name('OneToOne');
+    Route::get('/user-one-to-many', [UsersController::class, 'OneToMany'])->name('OneToMany');
+    Route::get('/user-many-to-many', [UsersController::class, 'ManyToMany'])->name('ManyToMany');
 });

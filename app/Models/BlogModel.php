@@ -6,17 +6,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use \Hash;
+use App\Models\User;
 class BlogModel extends Model
 {
     use HasFactory;
     protected $table = "blog_list_tbl";
+    protected $primaryKey = 'id';
     protected $fillable = [
         'title',
         'description',
         'photo',
     ]; 
 
- 
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function Users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+    
     public function SaveNewBlog($request,$data) {
         try {
             $title = $data['title'];
